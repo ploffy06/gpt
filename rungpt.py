@@ -12,7 +12,7 @@ if len(sys.argv) != 3:
 version = sys.argv[1]
 prompt = sys.argv[2]
 
-if version not in ["v1", "v2"]:
+if version not in ["v1", "v2", "v3", "v4"]:
     print("Invalid version specified")
     exit(0)
 
@@ -37,6 +37,12 @@ if version == "v1":
 elif version == "v2":
     model = GPTv2(vocab_size, n_embed)
     model.load_state_dict(torch.load("model/v2"))
+elif version == "v3":
+    model = GPTv2(vocab_size, n_embed) # same as v2 but trained on lesser epochs
+    model.load_state_dict(torch.load("model/v3"))
+elif version == "v4":
+    model = GPTv2(vocab_size, n_embed) # same as v2 but trained with L2 regularization
+    model.load_state_dict(torch.load("model/v4"))
 
 model.eval()
 
